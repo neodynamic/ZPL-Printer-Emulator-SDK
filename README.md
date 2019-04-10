@@ -8,6 +8,8 @@
 
 **ZPLPrinter Emulator SDK** supports international text including **Latin, Asian and RTL languages**, most of the **ZPL barcodes, color ribbon simulation, custom Rotation** and many more features!
 
+>The sample projects in this repo requires Visual Studio 2017+
+
 The following is a screenshot of a **Windows App** using **ZPLPrinter Emulator SDK**
 
 <img title="ZPLPrinter Emulator SDK for .NET Standard" style="width: 50%; height: 50%" src="https://neodynamic.com/Products/screenshots/ZPLPrinter/ZPLPrinter-Emulator-SDK-1.png" alt="ZPLPrinter Emulator SDK for .NET Standard" />
