@@ -1,0 +1,370 @@
+<doc>
+    <assembly>
+        <name>HarfBuzzSharp</name>
+    </assembly>
+    <members>
+        <member name="T:HarfBuzzSharp.Blob">
+            <summary>Represents a blob of data in memory.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="C:HarfBuzzSharp.Blob(System.IntPtr,System.UInt32,HarfBuzzSharp.MemoryMode,System.Object,HarfBuzzSharp.BlobReleaseDelegate)">
+            <param name="data">The data to wrap.</param>
+            <param name="length">The length of the data being wrapped.</param>
+            <param name="mode">The memory mode to use.</param>
+            <param name="userData">The user data to pass to the release delegate.</param>
+            <param name="releaseDelegate">The delegate to invoke when the data is not needed anymore.</param>
+            <summary>Creates a new <see cref="T:HarfBuzzSharp.Blob" /> instance, wrapping the specified data.</summary>
+            <remarks>If there was a problem creating the blob, or if the data length was zero, then an empty blob will be created.</remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Blob.Dispose(System.Boolean)">
+            <param name="disposing">To be added.</param>
+            <summary>To be added.</summary>
+            <remarks>To be added.</remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Blob.MakeImmutable">
+            <summary>Makes the blob immutable.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="T:HarfBuzzSharp.BlobReleaseDelegate">
+            <param name="context">The user data to passed to <see cref="M:HarfBuzzSharp.Blob..ctor" />.</param>
+            <summary>The delegate that will be invoked when a blob is ready to be discarded.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="T:HarfBuzzSharp.Buffer">
+            <summary>Represents a text buffer in memory.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="C:HarfBuzzSharp.Buffer">
+            <summary>Creates a new <see cref="M:HarfBuzzSharp.Buffer..ctor" /> with default values.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Buffer.AddUtf8(System.Byte[])">
+            <param name="bytes">The array of UTF-8 character bytes to append.</param>
+            <summary>Appends the specfied text bytes to the buffer.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Buffer.AddUtf8(System.String)">
+            <param name="utf8text">The array of UTF-8 characters to append.</param>
+            <summary>Appends the specfied text to the buffer.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Buffer.ClearContents">
+            <summary>Clears the buffer’s contents.</summary>
+            <remarks>This operation preserves the Unicode functions and replacement code point.</remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.Buffer.Direction">
+            <summary>Get or sets the text flow direction of the buffer.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>No shaping can happen without setting the direction, or invoking <see cref="M:HarfBuzzSharp.Buffer.GuessSegmentProperties" />.</remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Buffer.Dispose(System.Boolean)">
+            <param name="disposing">To be added.</param>
+            <summary>To be added.</summary>
+            <remarks>To be added.</remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.Buffer.GlyphInfos">
+            <summary>Gets the buffer glyph information array.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>The information is valid as long as buffer contents are not modified.</remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.Buffer.GlyphPositions">
+            <summary>Gets the buffer glyph position array.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>The positions are valid as long as buffer contents are not modified.</remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Buffer.GuessSegmentProperties">
+            <summary>Sets the unset buffer segment properties based on the buffer's Unicode contents.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.Buffer.Length">
+            <summary>Gets or sets the size of the buffer.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>If the new length is greater that the current length, more memory will be allocated. If the new length is less than the current length, the extra items will be cleared.</remarks>
+        </member>
+        <member name="T:HarfBuzzSharp.Direction">
+            <summary>Various text directions that can be set via <see cref="P:HarfBuzzSharp.Buffer.Direction" />.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="F:HarfBuzzSharp.Direction.BottomToTop">
+            <summary>Text is set vertically from bottom to top.</summary>
+        </member>
+        <member name="F:HarfBuzzSharp.Direction.Invalid">
+            <summary>Initial, unset direction.</summary>
+        </member>
+        <member name="F:HarfBuzzSharp.Direction.LeftToRight">
+            <summary>Text is set horizontally from left to right.</summary>
+        </member>
+        <member name="F:HarfBuzzSharp.Direction.RightToLeft">
+            <summary>Text is set horizontally from right to left.</summary>
+        </member>
+        <member name="F:HarfBuzzSharp.Direction.TopToBottom">
+            <summary>Text is set vertically from top to bottom.</summary>
+        </member>
+        <member name="T:HarfBuzzSharp.Face">
+            <summary>Represents a typeface.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="C:HarfBuzzSharp.Face(HarfBuzzSharp.Blob,System.UInt32)">
+            <param name="blob">The typeface data.</param>
+            <param name="index">The zero-based face index in a collection.</param>
+            <summary>Creates a new <see cref="T:HarfBuzzSharp.Face" /> instance, using the specified typeface blob.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Face.Dispose(System.Boolean)">
+            <param name="disposing">To be added.</param>
+            <summary>To be added.</summary>
+            <remarks>To be added.</remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.Face.Index">
+            <summary>Gets or sets the zero-based face index in a collection.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.Face.UnitsPerEm">
+            <summary>Gets or sets the units per EM.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="T:HarfBuzzSharp.Feature">
+            <summary>Various font features and variations.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.Feature.End">
+            <summary>Gets or sets the end.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.Feature.Start">
+            <summary>Gets or sets the start.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.Feature.Tag">
+            <summary>Gets or sets the tag.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.Feature.Value">
+            <summary>Gets or sets the value.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="T:HarfBuzzSharp.Font">
+            <summary>Represents a specific font face.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="C:HarfBuzzSharp.Font(HarfBuzzSharp.Face)">
+            <param name="face">The face to use.</param>
+            <summary>Creates a new <see cref="T:HarfBuzzSharp.Font" /> using a specific font face.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Font.Dispose(System.Boolean)">
+            <param name="disposing">To be added.</param>
+            <summary>To be added.</summary>
+            <remarks>To be added.</remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Font.GetScale(System.Int32@,System.Int32@)">
+            <param name="xScale">The scale along the x-axis.</param>
+            <param name="yScale">The scale along the y-axis.</param>
+            <summary>Retrives the font scale.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Font.SetFunctionsOpenType">
+            <summary>Sets the font functions to that of OpenType.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Font.SetScale(System.Int32,System.Int32)">
+            <param name="xScale">The scale along the x-axis.</param>
+            <param name="yScale">The scale along the y-axis.</param>
+            <summary>Sets the font scale.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.Font.Shape(HarfBuzzSharp.Buffer,HarfBuzzSharp.Feature[])">
+            <param name="buffer">The buffer to shape.</param>
+            <param name="features">The features to control the shaping process.</param>
+            <summary>Shapes the specified buffer using the current font.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="T:HarfBuzzSharp.GlyphInfo">
+            <summary>Represents a glyph and its relation to the input text.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.GlyphInfo.Cluster">
+            <summary>Gets or sets the index of the character in the original text.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.GlyphInfo.Codepoint">
+            <summary>Gets or sets the Unicode code point (or the glyph index after shaping).</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>This represents either a Unicode code point (before shaping) or a glyph index (after shaping).</remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.GlyphInfo.Mask">
+            <summary>Gets or sets the glyph mask.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="T:HarfBuzzSharp.GlyphPosition">
+            <summary>Represents the position of a glyph, relative to the current point.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.GlyphPosition.XAdvance">
+            <summary>Gets or sets how much the line advances after drawing this glyph when setting text in horizontal direction.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.GlyphPosition.XOffset">
+            <summary>Gets or sets how much the glyph moves horazontally before drawing it.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>This should not affect how much the line advances.</remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.GlyphPosition.YAdvance">
+            <summary>Gets or sets how much the line advances after drawing this glyph when setting text in vertical direction.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.GlyphPosition.YOffset">
+            <summary>Gets or sets how much the glyph moves horazontally before drawing it.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>This should not affect how much the line advances.</remarks>
+        </member>
+        <member name="T:HarfBuzzSharp.MemoryMode">
+            <summary>Various memory modes for  <see cref="T:HarfBuzzSharp.Blob" /></summary>
+            <remarks>In no case shall the HarfBuzz client modify memory that is passed to HarfBuzz in a blob. If there is any such possibility, <see cref="F:HarfBuzzSharp.MemoryMode.Duplicate" /> should be used such that HarfBuzz makes a copy immediately.</remarks>
+        </member>
+        <member name="F:HarfBuzzSharp.MemoryMode.Duplicate">
+            <summary>HarfBuzz makes a copy immediately.</summary>
+        </member>
+        <member name="F:HarfBuzzSharp.MemoryMode.ReadOnly">
+            <summary>Default mode indicating that the memory won’t be changed.</summary>
+        </member>
+        <member name="F:HarfBuzzSharp.MemoryMode.ReadOnlyMayMakeWriteable">
+            <summary>The font file was mmap()ed, but <see cref="F:HarfBuzzSharp.MemoryMode.ReadOnly" /> should still be used.</summary>
+        </member>
+        <member name="F:HarfBuzzSharp.MemoryMode.Writeable">
+            <summary>Indicates that the data was copied solely for the purpose of passing to HarfBuzz.</summary>
+        </member>
+        <member name="T:HarfBuzzSharp.NativeObject">
+            <summary>Represents a native object.</summary>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.NativeObject.Dispose">
+            <summary>To be added.</summary>
+            <remarks>To be added.</remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.NativeObject.Dispose(System.Boolean)">
+            <param name="disposing">To be added.</param>
+            <summary>To be added.</summary>
+            <remarks>To be added.</remarks>
+        </member>
+        <member name="M:HarfBuzzSharp.NativeObject.Finalize">
+            <summary>To be added.</summary>
+            <remarks>To be added.</remarks>
+        </member>
+        <member name="P:HarfBuzzSharp.NativeObject.Handle">
+            <summary>Gets or sets the handle to the underlying native object.</summary>
+            <value>
+                <para />
+            </value>
+            <remarks>
+                <para />
+            </remarks>
+        </member>
+    </members>
+</doc>
