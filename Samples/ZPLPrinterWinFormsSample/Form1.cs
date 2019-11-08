@@ -23,7 +23,7 @@ namespace ZPLPrinterWinFormsSample
         }
 
         //Create an instance of ZPLPrinter class
-        ZPLPrinter zplPrinter = new ZPLPrinter("LICENSE_OWNER_HERE", "LICENSE_KEY_HERE");
+        ZPLPrinter zplPrinter = new ZPLPrinter("License Owner", "License Key");
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -138,6 +138,15 @@ namespace ZPLPrinterWinFormsSample
                     if (sd.ShowDialog() == DialogResult.OK)
                         System.IO.File.WriteAllBytes(sd.FileName, buffer[0]);
                 }
+                else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.GRF)
+                {
+                    var sd = new SaveFileDialog();
+                    sd.Filter = "Zebra GRF ASCII hexadecimal (*.grf)|*.grf";
+                    sd.DefaultExt = "grf";
+                    sd.AddExtension = true;
+                    if (sd.ShowDialog() == DialogResult.OK)
+                        System.IO.File.WriteAllBytes(sd.FileName, buffer[0]);
+                }
             }
         }
 
@@ -175,8 +184,16 @@ namespace ZPLPrinterWinFormsSample
             zplPrinter.RibbonColor = ColorToHex(this.btnRibbonColor.BackColor);
 
             //Set Label BackColor
-            zplPrinter.LabelBackColor = ColorToHex(this.btnLabelBackColor.BackColor);
+            if(chkTransparent.Checked)
+                zplPrinter.LabelBackColor = ColorToHex(Color.Transparent);
+            else
+                zplPrinter.LabelBackColor = ColorToHex(this.btnLabelBackColor.BackColor);
 
+            //Set Background Image
+            zplPrinter.BackgroudImageFile = this.txtBackgroundImage.Text;
+
+            //Set Thumbnail Size
+            //zplPrinter.ThumbnailSize = 300;
         }
 
         private string ColorToHex(Color c)
@@ -212,6 +229,17 @@ namespace ZPLPrinterWinFormsSample
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {   
             zplPrinter.Dispose();
+        }
+
+        private void btnExamine_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files(*.JPG;*.PNG)|*.JPG;*.PNG";
+            if(ofd.ShowDialog() == DialogResult.OK)
+            {
+                txtBackgroundImage.Text = ofd.FileName;
+            }
+
         }
     }
 }

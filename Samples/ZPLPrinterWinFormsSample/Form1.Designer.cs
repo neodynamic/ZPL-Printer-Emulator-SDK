@@ -51,7 +51,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cboDpi = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtBackgroundImage = new System.Windows.Forms.TextBox();
+            this.btnExamine = new System.Windows.Forms.Button();
             this.imgViewer = new ZPLPrinterWinFormsSample.ImageViewer();
+            this.chkTransparent = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLabelHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLabelWidth)).BeginInit();
@@ -60,7 +64,7 @@
             // btnPreviewZpl
             // 
             this.btnPreviewZpl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreviewZpl.Location = new System.Drawing.Point(377, 164);
+            this.btnPreviewZpl.Location = new System.Drawing.Point(377, 199);
             this.btnPreviewZpl.Name = "btnPreviewZpl";
             this.btnPreviewZpl.Size = new System.Drawing.Size(144, 25);
             this.btnPreviewZpl.TabIndex = 4;
@@ -72,7 +76,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 164);
+            this.label1.Location = new System.Drawing.Point(12, 199);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(165, 25);
             this.label1.TabIndex = 2;
@@ -83,11 +87,12 @@
             this.txtZPLCommands.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.txtZPLCommands.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZPLCommands.Location = new System.Drawing.Point(12, 195);
+            this.txtZPLCommands.Location = new System.Drawing.Point(12, 230);
+            this.txtZPLCommands.MaxLength = 2147483646;
             this.txtZPLCommands.Multiline = true;
             this.txtZPLCommands.Name = "txtZPLCommands";
             this.txtZPLCommands.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtZPLCommands.Size = new System.Drawing.Size(509, 429);
+            this.txtZPLCommands.Size = new System.Drawing.Size(509, 394);
             this.txtZPLCommands.TabIndex = 5;
             this.txtZPLCommands.Text = resources.GetString("txtZPLCommands.Text");
             // 
@@ -106,7 +111,7 @@
             this.chkAntiAlias.AutoSize = true;
             this.chkAntiAlias.Checked = true;
             this.chkAntiAlias.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAntiAlias.Location = new System.Drawing.Point(391, 52);
+            this.chkAntiAlias.Location = new System.Drawing.Point(329, 84);
             this.chkAntiAlias.Name = "chkAntiAlias";
             this.chkAntiAlias.Size = new System.Drawing.Size(112, 17);
             this.chkAntiAlias.TabIndex = 10;
@@ -116,7 +121,7 @@
             // btnOpenZplFile
             // 
             this.btnOpenZplFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenZplFile.Location = new System.Drawing.Point(215, 164);
+            this.btnOpenZplFile.Location = new System.Drawing.Point(215, 199);
             this.btnOpenZplFile.Name = "btnOpenZplFile";
             this.btnOpenZplFile.Size = new System.Drawing.Size(141, 25);
             this.btnOpenZplFile.TabIndex = 3;
@@ -157,6 +162,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkTransparent);
+            this.groupBox1.Controls.Add(this.btnExamine);
+            this.groupBox1.Controls.Add(this.txtBackgroundImage);
+            this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.cboOutputRotation);
             this.groupBox1.Controls.Add(this.nudLabelHeight);
@@ -174,7 +183,7 @@
             this.groupBox1.Controls.Add(this.chkResetPrinter);
             this.groupBox1.Location = new System.Drawing.Point(12, 38);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(509, 110);
+            this.groupBox1.Size = new System.Drawing.Size(509, 143);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -338,6 +347,33 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "DPI:";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(10, 118);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(100, 13);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "Background Image:";
+            // 
+            // txtBackgroundImage
+            // 
+            this.txtBackgroundImage.Location = new System.Drawing.Point(112, 115);
+            this.txtBackgroundImage.Name = "txtBackgroundImage";
+            this.txtBackgroundImage.Size = new System.Drawing.Size(312, 20);
+            this.txtBackgroundImage.TabIndex = 16;
+            // 
+            // btnExamine
+            // 
+            this.btnExamine.Location = new System.Drawing.Point(430, 114);
+            this.btnExamine.Name = "btnExamine";
+            this.btnExamine.Size = new System.Drawing.Size(69, 21);
+            this.btnExamine.TabIndex = 17;
+            this.btnExamine.Text = "Examine...";
+            this.btnExamine.UseVisualStyleBackColor = true;
+            this.btnExamine.Click += new System.EventHandler(this.btnExamine_Click);
+            // 
             // imgViewer
             // 
             this.imgViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -347,6 +383,16 @@
             this.imgViewer.Name = "imgViewer";
             this.imgViewer.Size = new System.Drawing.Size(639, 581);
             this.imgViewer.TabIndex = 7;
+            // 
+            // chkTransparent
+            // 
+            this.chkTransparent.AutoSize = true;
+            this.chkTransparent.Location = new System.Drawing.Point(385, 53);
+            this.chkTransparent.Name = "chkTransparent";
+            this.chkTransparent.Size = new System.Drawing.Size(83, 17);
+            this.chkTransparent.TabIndex = 18;
+            this.chkTransparent.Text = "Transparent";
+            this.chkTransparent.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -399,6 +445,10 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cboOutputRotation;
         private ImageViewer imgViewer;
+        private System.Windows.Forms.Button btnExamine;
+        private System.Windows.Forms.TextBox txtBackgroundImage;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox chkTransparent;
     }
 }
 
