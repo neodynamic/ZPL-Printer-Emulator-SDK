@@ -1,8 +1,8 @@
-# ZPLPrinter Emulator SDK for .NET Standard
+# ZPLPrinter Emulator SDK 2.0 for .NET Standard
 
->Convert, Preview &amp; Render raw ZPL commands to PNG, JPG &amp; PDF from .NET
+>Convert, Preview &amp; Render raw ZPL commands to PNG, JPG, PCX, GRF &amp; PDF from .NET
 
-**[ZPLPrinter Emulator SDK for .NET](https://www.neodynamic.com/products/zpl-printer-emulator-sdk/)** allows you to **Convert, Preview and Render raw ZPL (Zebra Programming Language) commands to PNG, JPG & PDF** by writing **C# or VB.NET** code targeting any **.NET Framework, .NET CORE, Legacy ASP.NET MVC & CORE, Xamarin, Mono & Universal Windows Platform (UWP)** projects.
+**[ZPLPrinter Emulator SDK for .NET](https://www.neodynamic.com/products/zpl-printer-emulator-sdk/)** allows you to **Convert, Preview and Render raw ZPL (Zebra Programming Language) commands to PNG, JPG, PCX, GRF (ASCII Hex) & PDF** by writing **C# or VB.NET** code targeting any **.NET Framework, .NET CORE, Legacy ASP.NET MVC & CORE, Xamarin, Mono & Universal Windows Platform (UWP)** projects.
 
 **ZPLPrinter Emulator SDK** works like a **Virtual ZPL Printer device** by parsing and processing ZPL commands (from String or Streams) generating **high quality output** by reproducing **built-in and resident ZPL fonts** for texts and barcodes with **high accuracy**.
 
@@ -17,6 +17,10 @@ The following is a screenshot of a **Windows App** using **ZPLPrinter Emulator S
 **Color Label Simulation for Ribbon and Background**
 
 <img title="ZPLPrinter Emulator SDK for .NET Standard - Color Label Simulation" style="width: 50%; height: 50%" src="https://neodynamic.com/Products/screenshots/ZPLPrinter/ZPLPrinter-Emulator-SDK-2.png" alt="ZPLPrinter Emulator SDK for .NET Standard - Color Label Simulation" />
+
+**Custom Background Image**
+
+<img title="ZPLPrinter Emulator SDK for .NET Standard - Custom Background Image" style="width: 50%; height: 50%" src="https://neodynamic.com/Products/screenshots/ZPLPrinter/ZPLPrinter-Emulator-SDK-4.png" alt="ZPLPrinter Emulator SDK for .NET Standard - Custom Background Image" />
 
 Great **ZPL barcodes** support
 
