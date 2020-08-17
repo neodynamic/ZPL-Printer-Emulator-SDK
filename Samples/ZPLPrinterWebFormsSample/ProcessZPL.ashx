@@ -13,14 +13,14 @@ public class ProcessZPL : IHttpHandler
     public void ProcessRequest(HttpContext context)
     {
         //Get data for rendering process...
-        string lstPrinterDpi = HttpUtility.UrlDecode(context.Request["lstPrinterDpi"]);
-        string txtLabelWidth = HttpUtility.UrlDecode(context.Request["txtLabelWidth"]);
-        string txtLabelHeight = HttpUtility.UrlDecode(context.Request["txtLabelHeight"]);
-        string cpRibbonColor = HttpUtility.UrlDecode(context.Request["cpRibbonColor"]);
-        string cpBackColor = HttpUtility.UrlDecode(context.Request["cpBackColor"]);
-        string lstOutputFormat = HttpUtility.UrlDecode(context.Request["lstOutputFormat"]);
-        string lstOutputRotate = HttpUtility.UrlDecode(context.Request["lstOutputRotate"]);
-        string zplCommands = HttpUtility.UrlDecode(context.Request["zplCommands"]);
+        string lstPrinterDpi = context.Request["lstPrinterDpi"];
+        string txtLabelWidth = context.Request["txtLabelWidth"];
+        string txtLabelHeight = context.Request["txtLabelHeight"];
+        string cpRibbonColor = context.Request["cpRibbonColor"];
+        string cpBackColor = context.Request["cpBackColor"];
+        string lstOutputFormat = context.Request["lstOutputFormat"];
+        string lstOutputRotate = context.Request["lstOutputRotate"];
+        string zplCommands = context.Request["zplCommands"];
 
         var json = new StringBuilder();
         json.Append("{");
