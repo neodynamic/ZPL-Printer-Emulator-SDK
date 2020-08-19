@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -78,6 +78,7 @@
             <div class="navbar-collapse collapse">
                 <div class="pull-right">
                     <a class="btn btn-info" href="//www.neodynamic.com/products/zpl-printer-emulator-sdk/download/" target="_blank"><i class="glyphicon glyphicon-download-alt"></i> Download ZPLPrinter Emulator SDK for .NET</a>
+                    
                 </div>
             </div>
 
@@ -104,10 +105,12 @@
                             <div class="col-md-4">
                                 <label for="txtLabelWidth">Label Width (inch):</label>
                                 <input type="number" class="form-control input-sm allow_decimal" id="txtLabelWidth" name="txtLabelWidth" value="4">
+                                <label><input id="chkForceLabelWidth" name="chkForceLabelWidth" type="checkbox"><strong><small>&nbsp;Force Label Width?</small></strong></label>
                             </div>
                             <div class="col-md-4">
                                 <label for="txtLabelHeight">Label Height (inch):</label>
                                 <input type="number" class="form-control input-sm allow_decimal" id="txtLabelHeight" name="txtLabelHeight" value="6">
+                                <label><input id="chkForceLabelHeight" name="chkForceLabelHeight" type="checkbox"><strong><small>&nbsp;Force Label Height?</small></strong></label>
                             </div>
                         </div>
                         <div class="row">
@@ -274,7 +277,7 @@
 
         $(function () {
             $('.allow_decimal').on('input', function () {
-                match = (/(\d{0,1})[^.]*((?:\.\d{0,2})?)/g).exec(this.value.replace(/[^\d.]/g, ''));
+                match = (/(\d{0,2})[^.]*((?:\.\d{0,2})?)/g).exec(this.value.replace(/[^\d.]/g, ''));
                 this.value = match[1] + match[2];
             });
 
