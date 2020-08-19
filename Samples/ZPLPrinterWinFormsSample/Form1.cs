@@ -171,6 +171,9 @@ namespace ZPLPrinterWinFormsSample
             zplPrinter.LabelWidth = (float)this.nudLabelWidth.Value * zplPrinter.Dpi;
             zplPrinter.LabelHeight = (float)this.nudLabelHeight.Value * zplPrinter.Dpi;
             
+            zplPrinter.ForceLabelWidth = this.chkForceLabelWidth.Checked;
+            zplPrinter.ForceLabelHeight = this.chkForceLabelHeight.Checked;
+            
             //Apply antialiasing?
             zplPrinter.AntiAlias = this.chkAntiAlias.Checked;
             
