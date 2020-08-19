@@ -28,14 +28,14 @@ namespace ZPLPrinterAspNetCoreSample.Controllers
         {
 
             //Get data for rendering process...
-            string lstPrinterDpi = HttpUtility.UrlDecode(_ctx.Request.Form["lstPrinterDpi"]);
-            string txtLabelWidth = HttpUtility.UrlDecode(_ctx.Request.Form["txtLabelWidth"]);
-            string txtLabelHeight = HttpUtility.UrlDecode(_ctx.Request.Form["txtLabelHeight"]);
-            string cpRibbonColor = HttpUtility.UrlDecode(_ctx.Request.Form["cpRibbonColor"]);
-            string cpBackColor = HttpUtility.UrlDecode(_ctx.Request.Form["cpBackColor"]);
-            string lstOutputFormat = HttpUtility.UrlDecode(_ctx.Request.Form["lstOutputFormat"]);
-            string lstOutputRotate = HttpUtility.UrlDecode(_ctx.Request.Form["lstOutputRotate"]);
-            string zplCommands = HttpUtility.UrlDecode(_ctx.Request.Form["zplCommands"]);
+            string lstPrinterDpi = _ctx.Request.Form["lstPrinterDpi"];
+            string txtLabelWidth = _ctx.Request.Form["txtLabelWidth"];
+            string txtLabelHeight = _ctx.Request.Form["txtLabelHeight"];
+            string cpRibbonColor = _ctx.Request.Form["cpRibbonColor"];
+            string cpBackColor = _ctx.Request.Form["cpBackColor"];
+            string lstOutputFormat = _ctx.Request.Form["lstOutputFormat"];
+            string lstOutputRotate = _ctx.Request.Form["lstOutputRotate"];
+            string zplCommands = _ctx.Request.Form["zplCommands"];
 
             var json = new StringBuilder();
             json.Append("{");
@@ -57,8 +57,10 @@ namespace ZPLPrinterAspNetCoreSample.Controllers
                     //set label size
                     zplPrinter.LabelWidth = float.Parse(txtLabelWidth) * zplPrinter.Dpi;
                     if (zplPrinter.LabelWidth <= 0) zplPrinter.LabelWidth = 4;
+                    zplPrinter.ForceLabelWidth = (_ctx.Request.Form["chkForceLabelWidth"].Count > 0);
                     zplPrinter.LabelHeight = float.Parse(txtLabelHeight) * zplPrinter.Dpi;
                     if (zplPrinter.LabelHeight <= 0) zplPrinter.LabelHeight = 6;
+                    zplPrinter.ForceLabelHeight = (_ctx.Request.Form["chkForceLabelHeight"].Count > 0);
                     //Set Label BackColor
                     zplPrinter.LabelBackColor = cpBackColor;
                     //Set Ribbon Color
