@@ -1,4 +1,4 @@
-﻿<%@ WebHandler Language="C#" Class="ProcessZPL" %>
+<%@ WebHandler Language="C#" Class="ProcessZPL" %>
 
 using System;
 using System.Web;
@@ -42,8 +42,10 @@ public class ProcessZPL : IHttpHandler
                 //set label size
                 zplPrinter.LabelWidth = float.Parse(txtLabelWidth) * zplPrinter.Dpi;
                 if (zplPrinter.LabelWidth <= 0) zplPrinter.LabelWidth = 4;
+                zplPrinter.ForceLabelWidth = (context.Request["chkForceLabelWidth"] != null);
                 zplPrinter.LabelHeight = float.Parse(txtLabelHeight) * zplPrinter.Dpi;
                 if (zplPrinter.LabelHeight <= 0) zplPrinter.LabelHeight = 6;
+                zplPrinter.ForceLabelHeight = (context.Request["chkForceLabelHeight"] != null);
                 //Set Label BackColor
                 zplPrinter.LabelBackColor = cpBackColor;
                 //Set Ribbon Color
