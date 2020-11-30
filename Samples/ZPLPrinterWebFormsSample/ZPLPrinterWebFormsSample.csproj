@@ -77,7 +77,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-	<Reference Include="Neodynamic.SDK.ZPLPrinter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e450189b9ece3453, processorArchitecture=MSIL">
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Neodynamic.SDK.ZPLPrinter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e450189b9ece3453, processorArchitecture=MSIL">
       <HintPath>..\..\Bin\Neodynamic.SDK.ZPLPrinter.dll</HintPath>
     </Reference>
   </ItemGroup>
