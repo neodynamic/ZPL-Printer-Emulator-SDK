@@ -57,6 +57,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cboDpi = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnPrinterStorage = new System.Windows.Forms.Button();
+            this.btnExamineWatermark = new System.Windows.Forms.Button();
+            this.txtWatermarkImage = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.imgViewer = new ZPLPrinterWinFormsSample.ImageViewer();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLabelHeight)).BeginInit();
@@ -66,7 +70,7 @@
             // btnPreviewZpl
             // 
             this.btnPreviewZpl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreviewZpl.Location = new System.Drawing.Point(377, 231);
+            this.btnPreviewZpl.Location = new System.Drawing.Point(377, 298);
             this.btnPreviewZpl.Name = "btnPreviewZpl";
             this.btnPreviewZpl.Size = new System.Drawing.Size(144, 25);
             this.btnPreviewZpl.TabIndex = 4;
@@ -78,7 +82,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 231);
+            this.label1.Location = new System.Drawing.Point(12, 298);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(165, 25);
             this.label1.TabIndex = 2;
@@ -89,12 +93,12 @@
             this.txtZPLCommands.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.txtZPLCommands.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZPLCommands.Location = new System.Drawing.Point(12, 262);
+            this.txtZPLCommands.Location = new System.Drawing.Point(12, 329);
             this.txtZPLCommands.MaxLength = 2147483646;
             this.txtZPLCommands.Multiline = true;
             this.txtZPLCommands.Name = "txtZPLCommands";
             this.txtZPLCommands.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtZPLCommands.Size = new System.Drawing.Size(509, 362);
+            this.txtZPLCommands.Size = new System.Drawing.Size(509, 295);
             this.txtZPLCommands.TabIndex = 5;
             this.txtZPLCommands.Text = resources.GetString("txtZPLCommands.Text");
             // 
@@ -123,7 +127,7 @@
             // btnOpenZplFile
             // 
             this.btnOpenZplFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenZplFile.Location = new System.Drawing.Point(215, 231);
+            this.btnOpenZplFile.Location = new System.Drawing.Point(215, 298);
             this.btnOpenZplFile.Name = "btnOpenZplFile";
             this.btnOpenZplFile.Size = new System.Drawing.Size(141, 25);
             this.btnOpenZplFile.TabIndex = 3;
@@ -164,6 +168,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnExamineWatermark);
+            this.groupBox1.Controls.Add(this.txtWatermarkImage);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.btnPrinterStorage);
             this.groupBox1.Controls.Add(this.chkForceLabelHeight);
             this.groupBox1.Controls.Add(this.chkForceLabelWidth);
             this.groupBox1.Controls.Add(this.chkTransparent);
@@ -187,7 +195,7 @@
             this.groupBox1.Controls.Add(this.chkResetPrinter);
             this.groupBox1.Location = new System.Drawing.Point(12, 38);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(509, 175);
+            this.groupBox1.Size = new System.Drawing.Size(509, 245);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -408,6 +416,44 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "DPI:";
             // 
+            // btnPrinterStorage
+            // 
+            this.btnPrinterStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrinterStorage.Location = new System.Drawing.Point(13, 205);
+            this.btnPrinterStorage.Name = "btnPrinterStorage";
+            this.btnPrinterStorage.Size = new System.Drawing.Size(486, 25);
+            this.btnPrinterStorage.TabIndex = 19;
+            this.btnPrinterStorage.Text = "Admin Printer Storage...";
+            this.btnPrinterStorage.UseVisualStyleBackColor = true;
+            this.btnPrinterStorage.Click += new System.EventHandler(this.btnPrinterStorage_Click);
+            // 
+            // btnExamineWatermark
+            // 
+            this.btnExamineWatermark.Location = new System.Drawing.Point(430, 170);
+            this.btnExamineWatermark.Name = "btnExamineWatermark";
+            this.btnExamineWatermark.Size = new System.Drawing.Size(69, 21);
+            this.btnExamineWatermark.TabIndex = 21;
+            this.btnExamineWatermark.Text = "Examine...";
+            this.btnExamineWatermark.UseVisualStyleBackColor = true;
+            this.btnExamineWatermark.Click += new System.EventHandler(this.btnExamineWatermark_Click);
+            // 
+            // txtWatermarkImage
+            // 
+            this.txtWatermarkImage.Location = new System.Drawing.Point(112, 171);
+            this.txtWatermarkImage.Name = "txtWatermarkImage";
+            this.txtWatermarkImage.Size = new System.Drawing.Size(312, 20);
+            this.txtWatermarkImage.TabIndex = 20;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(10, 174);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(94, 13);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Watermark Image:";
+            // 
             // imgViewer
             // 
             this.imgViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -476,6 +522,10 @@
         private System.Windows.Forms.CheckBox chkTransparent;
         private System.Windows.Forms.CheckBox chkForceLabelHeight;
         private System.Windows.Forms.CheckBox chkForceLabelWidth;
+        private System.Windows.Forms.Button btnPrinterStorage;
+        private System.Windows.Forms.Button btnExamineWatermark;
+        private System.Windows.Forms.TextBox txtWatermarkImage;
+        private System.Windows.Forms.Label label11;
     }
 }
 

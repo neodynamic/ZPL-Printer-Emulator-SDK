@@ -23,7 +23,7 @@ namespace ZPLPrinterWinFormsSample
         }
 
         //Create an instance of ZPLPrinter class
-        ZPLPrinter zplPrinter = new ZPLPrinter("License Owner", "License Key");
+        ZPLPrinter zplPrinter = new ZPLPrinter("EVAL", "EVAL");
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -38,6 +38,8 @@ namespace ZPLPrinterWinFormsSample
             this.nudLabelWidth.Value = 4;
             this.nudLabelHeight.Value = 6;
 
+            //zplPrinter.AddFont("R:ARIUNI.FNT", @"c:\Windows\Fonts\ARIALUNI.TTF");
+
         }
 
        
@@ -46,17 +48,17 @@ namespace ZPLPrinterWinFormsSample
             //Prepare ZPLPrinter
             this.PrepareZPLPrinter();
 
-            try
-            {
+            //try
+            //{
                 //Let ZPLPrinter to process the specified ZPL commands
                 //and display rendering output if any...
-                DisplayRenderOutput(zplPrinter.ProcessCommands(this.txtZPLCommands.Text));
-            }
-            catch (Exception ex)
-            {
-                this.imgViewer.Clear();
-                MessageBox.Show(ex.Message);
-            }
+                DisplayRenderOutput(zplPrinter.ProcessCommands(this.txtZPLCommands.Text, Encoding.UTF8));
+            //}
+            //catch (Exception ex)
+            //{
+            //    this.imgViewer.Clear();
+            //    MessageBox.Show(ex.Message);
+            //}
 
         }
 
@@ -69,20 +71,20 @@ namespace ZPLPrinterWinFormsSample
                 //Prepare ZPLPrinter
                 this.PrepareZPLPrinter();
 
-                try
-                {
+                //try
+                //{
                     //display commands from file
-                    this.txtZPLCommands.Text = System.IO.File.ReadAllText(ofd.FileName);
+                    this.txtZPLCommands.Text = System.IO.File.ReadAllText(ofd.FileName, Encoding.UTF8);
 
                     //Let ZPLPrinter to process the specified file containing ZPL commands
                     //and display rendering output if any...
                     DisplayRenderOutput(zplPrinter.ProcessCommandsFromFile(ofd.FileName));
-                }
-                catch (Exception ex)
-                {
-                    this.imgViewer.Clear();
-                    MessageBox.Show(ex.Message);
-                }
+                //}
+                //catch (Exception ex)
+                //{
+                //    this.imgViewer.Clear();
+                //    MessageBox.Show(ex.Message);
+                //}
             }
         }
 
@@ -170,10 +172,11 @@ namespace ZPLPrinterWinFormsSample
             //set label size
             zplPrinter.LabelWidth = (float)this.nudLabelWidth.Value * zplPrinter.Dpi;
             zplPrinter.LabelHeight = (float)this.nudLabelHeight.Value * zplPrinter.Dpi;
-            
+
             zplPrinter.ForceLabelWidth = this.chkForceLabelWidth.Checked;
             zplPrinter.ForceLabelHeight = this.chkForceLabelHeight.Checked;
-            
+
+
             //Apply antialiasing?
             zplPrinter.AntiAlias = this.chkAntiAlias.Checked;
             
@@ -194,6 +197,10 @@ namespace ZPLPrinterWinFormsSample
 
             //Set Background Image
             zplPrinter.BackgroudImageFile = this.txtBackgroundImage.Text;
+
+            //Set Watermark Image
+            zplPrinter.WatermarkImageFile = this.txtWatermarkImage.Text;
+            zplPrinter.WatermarkOpacity = 50;
 
             //Set Thumbnail Size
             //zplPrinter.ThumbnailSize = 300;
@@ -242,7 +249,32 @@ namespace ZPLPrinterWinFormsSample
             {
                 txtBackgroundImage.Text = ofd.FileName;
             }
+            else
+            {
+                txtBackgroundImage.Text = "";
+            }
 
+        }
+
+        private void btnPrinterStorage_Click(object sender, EventArgs e)
+        {
+            var psd = new PrinterStorage();
+            psd.VirtualPrinter = zplPrinter;
+            psd.ShowDialog();
+        }
+
+        private void btnExamineWatermark_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files(*.JPG;*.PNG)|*.JPG;*.PNG";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                txtWatermarkImage.Text = ofd.FileName;
+            }
+            else
+            {
+                txtWatermarkImage.Text = "";
+            }
         }
     }
 }
