@@ -1,4 +1,4 @@
-# ZPLPrinter Emulator SDK 2.0 for .NET Standard
+# ZPLPrinter Emulator SDK 3.0 for .NET Standard
 
 >Convert, Preview &amp; Render raw ZPL commands to PNG, JPG, PCX, GRF &amp; PDF from .NET
 
