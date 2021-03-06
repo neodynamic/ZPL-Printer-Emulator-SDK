@@ -68,23 +68,13 @@ namespace ZPLPrinterWinFormsSample
             var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                //Prepare ZPLPrinter
-                this.PrepareZPLPrinter();
+                
+                //display commands from file
+                this.txtZPLCommands.Text = System.IO.File.ReadAllText(ofd.FileName, Encoding.UTF8);
 
-                //try
-                //{
-                    //display commands from file
-                    this.txtZPLCommands.Text = System.IO.File.ReadAllText(ofd.FileName, Encoding.UTF8);
-
-                    //Let ZPLPrinter to process the specified file containing ZPL commands
-                    //and display rendering output if any...
-                    DisplayRenderOutput(zplPrinter.ProcessCommandsFromFile(ofd.FileName));
-                //}
-                //catch (Exception ex)
-                //{
-                //    this.imgViewer.Clear();
-                //    MessageBox.Show(ex.Message);
-                //}
+                //Let ZPLPrinter to process the specified file containing ZPL commands
+                //and display rendering output if any...
+                btnPreviewZpl_Click(null, EventArgs.Empty);
             }
         }
 
