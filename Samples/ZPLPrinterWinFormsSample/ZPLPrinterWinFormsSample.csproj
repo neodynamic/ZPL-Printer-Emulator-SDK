@@ -40,9 +40,6 @@
     <Reference Include="SkiaSharp, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\SkiaSharp.1.60.3\lib\net45\SkiaSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp.HarfBuzz, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.HarfBuzz.1.60.3\lib\netstandard1.3\SkiaSharp.HarfBuzz.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -60,7 +57,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-	<Reference Include="Neodynamic.SDK.ZPLPrinter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e450189b9ece3453, processorArchitecture=MSIL">
+	<Reference Include="Neodynamic.SDK.ZPLPrinter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e450189b9ece3453, processorArchitecture=MSIL">
       <HintPath>..\..\Bin\Neodynamic.SDK.ZPLPrinter.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -124,8 +121,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets'))" />
-    <Error Condition="!Exists('..\packages\HarfBuzzSharp.1.4.6.1\build\net45\HarfBuzzSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\HarfBuzzSharp.1.4.6.1\build\net45\HarfBuzzSharp.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets'))" />    
   </Target>
-  <Import Project="..\packages\HarfBuzzSharp.1.4.6.1\build\net45\HarfBuzzSharp.targets" Condition="Exists('..\packages\HarfBuzzSharp.1.4.6.1\build\net45\HarfBuzzSharp.targets')" />
 </Project>

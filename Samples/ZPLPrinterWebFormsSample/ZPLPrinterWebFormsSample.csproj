@@ -49,11 +49,11 @@
       <HintPath>..\packages\HarfBuzzSharp.1.4.6.1\lib\net45\HarfBuzzSharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SkiaSharp, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\SkiaSharp.1.60.3\lib\net45\SkiaSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="SkiaSharp.HarfBuzz, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.HarfBuzz.1.60.3\lib\netstandard1.3\SkiaSharp.HarfBuzz.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
@@ -78,7 +78,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Neodynamic.SDK.ZPLPrinter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e450189b9ece3453, processorArchitecture=MSIL">
+    <Reference Include="Neodynamic.SDK.ZPLPrinter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e450189b9ece3453, processorArchitecture=MSIL">
       <HintPath>..\..\Bin\Neodynamic.SDK.ZPLPrinter.dll</HintPath>
     </Reference>
   </ItemGroup>

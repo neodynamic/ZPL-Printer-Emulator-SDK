@@ -72,7 +72,7 @@ namespace ZPLPrinterAspNetCoreSample.Controllers
                     //Set text encoding
                     Encoding enc = (_ctx.Request.Form["chkUTF8"].Count > 0 ? Encoding.UTF8 : Encoding.GetEncoding(850));
 
-                    var buffer = zplPrinter.ProcessCommands(zplCommands, enc);
+                    var buffer = zplPrinter.ProcessCommands(zplCommands, enc, true);
 
                     // the buffer variable contains the binary output of the ZPL rendering result
                     // The format of this buffer depends on the RenderOutputFormat property setting
@@ -96,8 +96,9 @@ namespace ZPLPrinterAspNetCoreSample.Controllers
                         {
                             json.Append($"\"labelPDF\":\"data:application/pdf;base64,{Convert.ToBase64String(buffer[0])}\"");
                         }
-                        else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.PCX)
+                        else
                         {
+                            string fileExt = zplPrinter.RenderOutputFormat.ToString().ToLower();
                             //If there're more than one file, then zip them...
                             if (buffer.Count > 1)
                             {
@@ -107,7 +108,7 @@ namespace ZPLPrinterAspNetCoreSample.Controllers
                                     {
                                         for (int i = 0; i < buffer.Count; i++)
                                         {
-                                            var fileInArchive = archive.CreateEntry($"Label{i.ToString()}.pcx", CompressionLevel.Optimal);
+                                            var fileInArchive = archive.CreateEntry($"Label{i.ToString()}.{fileExt}", CompressionLevel.Optimal);
                                             using (var entryStream = fileInArchive.Open())
                                             using (var fileToCompressStream = new MemoryStream(buffer[i]))
                                             {
@@ -115,14 +116,17 @@ namespace ZPLPrinterAspNetCoreSample.Controllers
                                             }
                                         }
                                     }
-                                    json.Append($"\"labelPCX\":\"data:application/zip;base64,{Convert.ToBase64String(outStream.ToArray())}\"");
+                                    json.Append($"\"labelBinaries\":\"data:application/zip;base64,{Convert.ToBase64String(outStream.ToArray())}\"");
                                 }
                             }
                             else
                             {
-                                json.Append($"\"labelPCX\":\"data:image/pcx;base64,{Convert.ToBase64String(buffer[0])}\"");
+                                json.Append($"\"labelBinaries\":\"data:application/octet-stream;base64,{Convert.ToBase64String(buffer[0])}\"");
                             }
                         }
+
+                        json.Append($",\"renderedElements\":" + zplPrinter.RenderedElementsAsJson);
+
                     }
                     else
                         throw new ArgumentException("No output available for the specified ZPL commands.");

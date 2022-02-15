@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
+
+using Neodynamic.SDK.ZPLPrinter;
 
 namespace ZPLPrinterWinFormsSample
 {
     public partial class ImageViewer : UserControl
     {
+        ZPLPrinter _zplPrinter = null;
+
         int iCurrPage = 1, iPages = 1;
 
         public ImageViewer()
@@ -20,16 +24,16 @@ namespace ZPLPrinterWinFormsSample
             InitializeComponent();
         }
 
-
-
         string[] imgFiles = null;
-        public void LoadImages(string folder, string imageExtension)
+        public void LoadImages(string folder, ref ZPLPrinter zplPrinter)
         {
+            _zplPrinter = zplPrinter;
+
             picLabel.Image = null;
 
             if (Directory.Exists(folder))
             {
-                imgFiles = Directory.GetFiles(folder, "*." + imageExtension);
+                imgFiles = Directory.GetFiles(folder, "*." + _zplPrinter.RenderOutputFormat.ToString());
 
 
                 //currentImage = Image.FromStream(imgStream);
@@ -41,14 +45,29 @@ namespace ZPLPrinterWinFormsSample
         public void RefreshImage()
         {
             iPages = imgFiles.Length;
-            cmdNext.Visible = cmdPrev.Visible = (iPages > 1);
+            btnNext.Visible = btnPrev.Visible = cmdNext.Visible = cmdPrev.Visible = (iPages > 1);
             lblNumOfLabels.Text = "Label " + iCurrPage.ToString() + " of " + iPages.ToString();
             using (FileStream fs = new FileStream(imgFiles[iCurrPage - 1], FileMode.Open, FileAccess.Read))
                 picLabel.Image = Image.FromStream(fs);
             this.SetImageLocation();
+
+            // display rendered elements if any
+            this.lstZPLElements.Items.Clear();
+            if(_zplPrinter != null && _zplPrinter.RenderedElements != null && _zplPrinter.RenderedElements.Count> 0)
+            {
+                foreach(var zplElem in _zplPrinter.RenderedElements[iCurrPage - 1])
+                {
+                    this.lstZPLElements.Items.Add(string.IsNullOrEmpty(zplElem.Content) ? "^" + zplElem.Name : string.Format("^{0}: `{1}`", zplElem.Name, zplElem.Content));
+                }
+            }
+
         }
 
-        public void Clear() { if (picLabel.Image != null) picLabel.Image.Dispose(); }
+        public void Clear() { 
+            if (picLabel.Image != null) picLabel.Image.Dispose();
+
+            this.lstZPLElements.Items.Clear();
+        }
 
         private void btnPrev_Click(object sender, EventArgs e)
         {
@@ -92,6 +111,37 @@ namespace ZPLPrinterWinFormsSample
             }
 
             picLabel.Location = new Point(x, y);
+        }
+
+        private void lstZPLElements_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ZPLElement zplElem = null;
+            if(this.lstZPLElements.SelectedIndex >= 0)
+            {
+                zplElem = _zplPrinter.RenderedElements[iCurrPage - 1][this.lstZPLElements.SelectedIndex];
+            }
+            HighlightZplElem(zplElem);
+        }
+
+        private void HighlightZplElem(ZPLElement zplElem)
+        {
+            using (FileStream fs = new FileStream(imgFiles[iCurrPage - 1], FileMode.Open, FileAccess.Read))
+            {
+                var imgLabel = Image.FromStream(fs);
+
+                if (zplElem != null)
+                {
+                    using (var gfx = Graphics.FromImage(imgLabel))
+                    {
+                        using (var brush = new SolidBrush(Color.FromArgb(128, Color.DeepSkyBlue)))
+                        {
+                            gfx.FillRectangle(brush, new Rectangle(zplElem.X, zplElem.Y, zplElem.Width, zplElem.Height));
+                        }
+                    }
+                }
+                picLabel.Image = imgLabel;
+                this.SetImageLocation();
+            }
         }
 
         protected override void OnResize(EventArgs e)

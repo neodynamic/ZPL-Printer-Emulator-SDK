@@ -23,7 +23,7 @@ namespace ZPLPrinterWinFormsSample
         }
 
         //Create an instance of ZPLPrinter class
-        ZPLPrinter zplPrinter = new ZPLPrinter("EVAL", "EVAL");
+        ZPLPrinter zplPrinter = new ZPLPrinter("", "");
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -39,7 +39,7 @@ namespace ZPLPrinterWinFormsSample
             this.nudLabelHeight.Value = 6;
 
             //zplPrinter.AddFont("R:ARIUNI.FNT", @"c:\Windows\Fonts\ARIALUNI.TTF");
-
+            
         }
 
        
@@ -48,17 +48,17 @@ namespace ZPLPrinterWinFormsSample
             //Prepare ZPLPrinter
             this.PrepareZPLPrinter();
 
-            //try
-            //{
+            try
+            {
                 //Let ZPLPrinter to process the specified ZPL commands
                 //and display rendering output if any...
-                DisplayRenderOutput(zplPrinter.ProcessCommands(this.txtZPLCommands.Text, Encoding.UTF8));
-            //}
-            //catch (Exception ex)
-            //{
-            //    this.imgViewer.Clear();
-            //    MessageBox.Show(ex.Message);
-            //}
+                DisplayRenderOutput(zplPrinter.ProcessCommands(this.txtZPLCommands.Text, Encoding.UTF8, true));
+            }
+            catch (Exception ex)
+            {
+                this.imgViewer.Clear();
+                MessageBox.Show(ex.Message);
+            }
 
         }
 
@@ -102,7 +102,7 @@ namespace ZPLPrinterWinFormsSample
                             File.WriteAllBytes(myDir + "Image" + i.ToString().PadLeft(buffer.Count, '0') + "." + zplPrinter.RenderOutputFormat.ToString(), buffer[i]);
                         }
                         //preview them
-                        this.imgViewer.LoadImages(myDir, zplPrinter.RenderOutputFormat.ToString());
+                        this.imgViewer.LoadImages(myDir, ref zplPrinter);
                         
                     }
                     catch (Exception ex)
@@ -121,20 +121,35 @@ namespace ZPLPrinterWinFormsSample
                     if (sd.ShowDialog() == DialogResult.OK)
                         System.IO.File.WriteAllBytes(sd.FileName, buffer[0]);
                 }
-                else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.PCX)
+                else 
                 {
                     var sd = new SaveFileDialog();
-                    sd.Filter = "PiCture eXchange (*.pcx)|*.pcx";
-                    sd.DefaultExt = "pcx";
-                    sd.AddExtension = true;
-                    if (sd.ShowDialog() == DialogResult.OK)
-                        System.IO.File.WriteAllBytes(sd.FileName, buffer[0]);
-                }
-                else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.GRF)
-                {
-                    var sd = new SaveFileDialog();
-                    sd.Filter = "Zebra GRF ASCII hexadecimal (*.grf)|*.grf";
-                    sd.DefaultExt = "grf";
+                    if (zplPrinter.RenderOutputFormat == RenderOutputFormat.PCX)
+                    {
+                        sd.Filter = "PiCture eXchange (*.pcx)|*.pcx";
+                        sd.DefaultExt = "pcx";
+                    }
+                    else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.GRF)
+                    {
+                        sd.Filter = "Zebra GRF ASCII hexadecimal (*.grf)|*.grf";
+                        sd.DefaultExt = "grf";
+                    }
+                    else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.EPL)
+                    {
+                        sd.Filter = "Zebra EPL Binary (*.epl)|*.epl";
+                        sd.DefaultExt = "epl";
+                    }
+                    else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.FP)
+                    {
+                        sd.Filter = "Honeywell-Intermec Fingerprint Binary (*.fp)|*.fp";
+                        sd.DefaultExt = "fp";
+                    }
+                    else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.NV)
+                    {
+                        sd.Filter = "EPSON ESC/POS NV Binary (*.nv)|*.nv";
+                        sd.DefaultExt = "nv";
+                    }
+
                     sd.AddExtension = true;
                     if (sd.ShowDialog() == DialogResult.OK)
                         System.IO.File.WriteAllBytes(sd.FileName, buffer[0]);

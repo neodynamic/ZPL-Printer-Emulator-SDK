@@ -11,13 +11,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="SkiaSharp" Version="1.60.3" />
-    <PackageReference Include="SkiaSharp.HarfBuzz" Version="1.60.3" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Neodynamic.SDK.ZPLPrinter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e450189b9ece3453, processorArchitecture=MSIL">
+    <Reference Include="Neodynamic.SDK.ZPLPrinter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e450189b9ece3453, processorArchitecture=MSIL">
       <HintPath>..\..\Bin\Neodynamic.SDK.ZPLPrinter.dll</HintPath>
     </Reference>
   </ItemGroup>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -74,6 +74,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="//www.neodynamic.com/products/zpl-printer-emulator-sdk/" target="_blank" class="navbar-brand">ZPLPrinter Emulator SDK for .NET Standard</a>
+                <span class="label label-danger">Version 4.0.0.0</span>
             </div>
             <div class="navbar-collapse collapse">
                 <div class="pull-right">
@@ -132,10 +133,14 @@
                             <div class="col-md-4">
                                 <label for="lstOutputFormat">Output Format:</label>
                                 <select id="lstOutputFormat" name="lstOutputFormat" class="form-control input-sm">
-                                    <option selected>PNG</option>
-                                    <option>JPG</option>
-                                    <option>PDF</option>
-                                    <option>PCX</option>
+                                    <option value="PNG" selected>PNG</option>
+                                    <option value="JPG">JPG</option>
+                                    <option value="PDF">PDF</option>
+                                    <option value="PCX">PCX</option>
+                                    <option value="GRF">Zebra ZPL GRF</option>
+                                    <option value="EPL">Zebra EPL Binary</option>
+                                    <option value="FP">Honeywell-Intermec FingerPrint Binary</option>
+                                    <option value="NV">EPSON ESC/POS NV Binary</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -184,19 +189,30 @@
                 <h2>ZPL Rendering Output</h2>
                 <div class="form-group well">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-1">
                             <button type="button" class="btn btn-info" onclick="prevLabelImage();"><i class="glyphicon glyphicon-triangle-left" aria-hidden="true"></i></button>
                         </div>
-                        <div class="col-md-4 text-center">
-                            <h4 id="lblPreview"></h4>
+                        <div class="col-md-10 text-center">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h4 id="lblPreview"></h4>
+                                </div>
+                                <div class="col-md-3">
+                                    <h4 class=" pull-right">Rendered Elements:</h4>
+                                </div>
+                                <div class="col-md-5">
+                                    <select id="lstRenderedElements" class="form-control input-sm" onchange="highlightRenderedElement()"></select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-1">
                             <button type="button" class="btn btn-info pull-right" onclick="nextLabelImage();"><i class="glyphicon glyphicon-triangle-right" aria-hidden="true"></i></button>
                         </div>
                     </div>
                     <hr />
                     <div class="text-center">
                         <img id="imgLabelPreview" />
+                        <canvas id="myCanvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -301,6 +317,9 @@
             _maxNumOfLabels = 0;
             _zpl_output_buffer = null;
 
+            _this.fillRenderedElements();
+            _this.highlightRenderedElement();
+
             $.post("ProcessZPL.ashx", $('#formZPL').serialize(), function (result) {
                 if (JSON) {
                     try {
@@ -315,9 +334,9 @@
                         } else if (_zpl_output_buffer.labelPDF) {
                             $('#imgLabelPreview').attr("src", _image_icon);
                             myDownload("The specified ZPL commands were converted to PDF successfully.", "zpl-labels.pdf", _zpl_output_buffer.labelPDF);
-                        } else if (_zpl_output_buffer.labelPCX) {
+                        } else if (_zpl_output_buffer.labelBinaries) {
                             $('#imgLabelPreview').attr("src", _image_icon);
-                            myDownload("The specified ZPL commands were converted to PCX successfully.", (_zpl_output_buffer.labelPCX.indexOf('image/pcx') > 0 ? "zpl-labels.pcx" : "zpl-labels.zip"), _zpl_output_buffer.labelPCX);
+                            myDownload("The specified ZPL commands were converted to " + $('#lstOutputFormat').val() + " successfully.", (_zpl_output_buffer.labelBinaries.indexOf('application/octet-stream') > 0 ? "zpl-labels." + $('#lstOutputFormat').val() : "zpl-labels.zip"), _zpl_output_buffer.labelBinaries);
                         }
                     } catch (e) {
                         $('#imgLabelPreview').attr("src", _image_icon);
@@ -335,6 +354,8 @@
             if (_zpl_output_buffer && _zpl_output_buffer.labelImages) {
                 $('#lblPreview').text("Label " + (_currentLabelIndex + 1) + " of " + _maxNumOfLabels);
                 $('#imgLabelPreview').attr("src", _zpl_output_buffer.labelImages[_currentLabelIndex]);
+                fillRenderedElements();
+                highlightRenderedElement();
             }
         }
 
@@ -349,6 +370,49 @@
             if (_currentLabelIndex > 0) {
                 _currentLabelIndex--;
                 showLabelImage();
+            }
+        }
+
+        function fillRenderedElements() {
+            $('#lstRenderedElements').empty();
+
+            if (_zpl_output_buffer && _zpl_output_buffer.renderedElements) {
+                var zplElems = _zpl_output_buffer.renderedElements[_currentLabelIndex];
+
+                if (zplElems && zplElems.length > 0) {
+                    $('#lstRenderedElements').append('<option></option>');
+                    for (var i = 0; i < zplElems.length; i++) {
+                        var zplEl = zplElems[i];
+                        $('#lstRenderedElements').append('<option>^' + zplEl.name + (zplEl.content.trim().length > 0 ? ': `' + zplEl.content.trim() + '`' : '') + '</option>');
+                    }
+                }
+            }
+        }
+
+        function highlightRenderedElement() {
+            var img = document.getElementById("imgLabelPreview");
+            var cnvs = document.getElementById("myCanvas");
+
+            cnvs.style.position = "absolute";
+            cnvs.style.left = img.offsetLeft + "px";
+            cnvs.style.top = img.offsetTop + "px";
+            cnvs.width = img.offsetWidth;
+            cnvs.height = img.offsetHeight;
+
+            var ctx = cnvs.getContext("2d");
+            ctx.clearRect(0, 0, cnvs.width, cnvs.height);
+
+            if (_zpl_output_buffer && _zpl_output_buffer.renderedElements) {
+                var zplElems = _zpl_output_buffer.renderedElements[_currentLabelIndex];
+
+                if (zplElems && zplElems.length > 0) {
+                    var lst = document.getElementById("lstRenderedElements");
+                    var zplEl = zplElems[lst.selectedIndex - 1];
+                    if (zplEl && zplEl.x) {
+                        ctx.fillStyle = 'rgba(255,69,0,0.5)';
+                        ctx.fillRect(zplEl.x, zplEl.y, zplEl.width, zplEl.height);
+                    }
+                }
             }
         }
 
