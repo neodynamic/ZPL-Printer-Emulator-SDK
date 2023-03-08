@@ -42,7 +42,8 @@ namespace ZPLPrinterWinFormsSample
             this.pnlContainer = new System.Windows.Forms.Panel();
             this.cmdNext = new System.Windows.Forms.Button();
             this.cmdPrev = new System.Windows.Forms.Button();
-            this.picLabel = new System.Windows.Forms.PictureBox();
+            this.panelLabel = new System.Windows.Forms.Panel();
+            this.panelElem = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -52,7 +53,7 @@ namespace ZPLPrinterWinFormsSample
             this.toolStripContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLabel)).BeginInit();
+            this.panelLabel.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -173,9 +174,9 @@ namespace ZPLPrinterWinFormsSample
             // 
             this.pnlContainer.AutoScroll = true;
             this.pnlContainer.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pnlContainer.Controls.Add(this.panelLabel);
             this.pnlContainer.Controls.Add(this.cmdNext);
             this.pnlContainer.Controls.Add(this.cmdPrev);
-            this.pnlContainer.Controls.Add(this.picLabel);
             this.pnlContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContainer.Location = new System.Drawing.Point(0, 0);
             this.pnlContainer.Name = "pnlContainer";
@@ -206,14 +207,23 @@ namespace ZPLPrinterWinFormsSample
             this.cmdPrev.UseVisualStyleBackColor = true;
             this.cmdPrev.Click += new System.EventHandler(this.btnPrev_Click);
             // 
-            // picLabel
+            // panelLabel
             // 
-            this.picLabel.Location = new System.Drawing.Point(175, 110);
-            this.picLabel.Name = "picLabel";
-            this.picLabel.Size = new System.Drawing.Size(100, 50);
-            this.picLabel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picLabel.TabIndex = 0;
-            this.picLabel.TabStop = false;
+            this.panelLabel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panelLabel.Controls.Add(this.panelElem);
+            this.panelLabel.Location = new System.Drawing.Point(205, 194);
+            this.panelLabel.Name = "panelLabel";
+            this.panelLabel.Size = new System.Drawing.Size(246, 136);
+            this.panelLabel.TabIndex = 3;
+            // 
+            // panelElem
+            // 
+            this.panelElem.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.panelElem.Location = new System.Drawing.Point(95, 55);
+            this.panelElem.Name = "panelElem";
+            this.panelElem.Size = new System.Drawing.Size(73, 31);
+            this.panelElem.TabIndex = 0;
+            this.panelElem.Visible = false;
             // 
             // ImageViewer
             // 
@@ -235,8 +245,7 @@ namespace ZPLPrinterWinFormsSample
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.pnlContainer.ResumeLayout(false);
-            this.pnlContainer.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLabel)).EndInit();
+            this.panelLabel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -256,6 +265,7 @@ namespace ZPLPrinterWinFormsSample
         private System.Windows.Forms.Panel pnlContainer;
         private System.Windows.Forms.Button cmdNext;
         private System.Windows.Forms.Button cmdPrev;
-        private System.Windows.Forms.PictureBox picLabel;
+        private System.Windows.Forms.Panel panelLabel;
+        private System.Windows.Forms.Panel panelElem;
     }
 }

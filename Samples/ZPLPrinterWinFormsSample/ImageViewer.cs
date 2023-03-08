@@ -22,6 +22,8 @@ namespace ZPLPrinterWinFormsSample
         public ImageViewer()
         {
             InitializeComponent();
+
+            this.panelElem.BackColor = Color.FromArgb(128, Color.DeepSkyBlue);
         }
 
         string[] imgFiles = null;
@@ -29,7 +31,7 @@ namespace ZPLPrinterWinFormsSample
         {
             _zplPrinter = zplPrinter;
 
-            picLabel.Image = null;
+            panelLabel.BackgroundImage = null;
 
             if (Directory.Exists(folder))
             {
@@ -44,11 +46,20 @@ namespace ZPLPrinterWinFormsSample
 
         public void RefreshImage()
         {
+            panelElem.Visible = false;
+
             iPages = imgFiles.Length;
             btnNext.Visible = btnPrev.Visible = cmdNext.Visible = cmdPrev.Visible = (iPages > 1);
             lblNumOfLabels.Text = "Label " + iCurrPage.ToString() + " of " + iPages.ToString();
             using (FileStream fs = new FileStream(imgFiles[iCurrPage - 1], FileMode.Open, FileAccess.Read))
-                picLabel.Image = Image.FromStream(fs);
+                panelLabel.BackgroundImage = Image.FromStream(fs);
+
+            if (panelLabel.BackgroundImage != null)
+            {
+                panelLabel.Width = panelLabel.BackgroundImage.Width;
+                panelLabel.Height = panelLabel.BackgroundImage.Height;
+            }
+
             this.SetImageLocation();
 
             // display rendered elements if any
@@ -64,7 +75,7 @@ namespace ZPLPrinterWinFormsSample
         }
 
         public void Clear() { 
-            if (picLabel.Image != null) picLabel.Image.Dispose();
+            if (panelLabel.BackgroundImage != null) panelLabel.BackgroundImage.Dispose();
 
             this.lstZPLElements.Items.Clear();
         }
@@ -92,25 +103,25 @@ namespace ZPLPrinterWinFormsSample
             int x = 0;
             int y = 0;
 
-            if (picLabel.Width > pnlContainer.ClientRectangle.Width)
+            if (panelLabel.Width > pnlContainer.ClientRectangle.Width)
             {
                 x = 0;
             }
             else
             {
-                x = (pnlContainer.ClientRectangle.Width - picLabel.Width) / 2;
+                x = (pnlContainer.ClientRectangle.Width - panelLabel.Width) / 2;
             }
 
-            if (picLabel.Height > pnlContainer.ClientRectangle.Height)
+            if (panelLabel.Height > pnlContainer.ClientRectangle.Height)
             {
                 y = 0;
             }
             else
             {
-                y = (pnlContainer.ClientRectangle.Height - picLabel.Height) / 2;
+                y = (pnlContainer.ClientRectangle.Height - panelLabel.Height) / 2;
             }
 
-            picLabel.Location = new Point(x, y);
+            panelLabel.Location = new Point(x, y);
         }
 
         private void lstZPLElements_SelectedIndexChanged(object sender, EventArgs e)
@@ -125,23 +136,15 @@ namespace ZPLPrinterWinFormsSample
 
         private void HighlightZplElem(ZPLElement zplElem)
         {
-            using (FileStream fs = new FileStream(imgFiles[iCurrPage - 1], FileMode.Open, FileAccess.Read))
-            {
-                var imgLabel = Image.FromStream(fs);
+            this.panelElem.Visible = (zplElem != null);
 
-                if (zplElem != null)
-                {
-                    using (var gfx = Graphics.FromImage(imgLabel))
-                    {
-                        using (var brush = new SolidBrush(Color.FromArgb(128, Color.DeepSkyBlue)))
-                        {
-                            gfx.FillRectangle(brush, new Rectangle(zplElem.X, zplElem.Y, zplElem.Width, zplElem.Height));
-                        }
-                    }
-                }
-                picLabel.Image = imgLabel;
-                this.SetImageLocation();
+            if (zplElem != null)
+            {
+                this.panelElem.Location = new Point(zplElem.X, zplElem.Y);
+                this.panelElem.Size = new Size(zplElem.Width, zplElem.Height);
             }
+
+            
         }
 
         protected override void OnResize(EventArgs e)
