@@ -45,9 +45,6 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HarfBuzzSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\HarfBuzzSharp.1.4.6.1\lib\net45\HarfBuzzSharp.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -78,7 +75,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Neodynamic.SDK.ZPLPrinter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e450189b9ece3453, processorArchitecture=MSIL">
+    <Reference Include="Neodynamic.SDK.ZPLPrinter, Version=5.0.0.0, Culture=neutral, PublicKeyToken=e450189b9ece3453, processorArchitecture=MSIL">
       <HintPath>..\..\Bin\Neodynamic.SDK.ZPLPrinter.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -137,10 +134,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets'))" />
-    <Error Condition="!Exists('..\packages\HarfBuzzSharp.1.4.6.1\build\net45\HarfBuzzSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\HarfBuzzSharp.1.4.6.1\build\net45\HarfBuzzSharp.targets'))" />
   </Target>
   <Import Project="..\packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets')" />
-  <Import Project="..\packages\HarfBuzzSharp.1.4.6.1\build\net45\HarfBuzzSharp.targets" Condition="Exists('..\packages\HarfBuzzSharp.1.4.6.1\build\net45\HarfBuzzSharp.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
