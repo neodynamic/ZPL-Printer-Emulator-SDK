@@ -96,10 +96,11 @@ namespace ZPLPrinterWinFormsSample
 
                     try
                     {
+                        int c = buffer.Count.ToString().Length;
                         //save images on disk 
                         for(int i = 0; i < buffer.Count; i++)
                         {
-                            File.WriteAllBytes(myDir + "Image" + i.ToString().PadLeft(buffer.Count, '0') + "." + zplPrinter.RenderOutputFormat.ToString(), buffer[i]);
+                            File.WriteAllBytes(myDir + "Image" + i.ToString().PadLeft(c, '0') + "." + zplPrinter.RenderOutputFormat.ToString(), buffer[i]);
                         }
                         //preview them
                         this.imgViewer.LoadImages(myDir, ref zplPrinter);
