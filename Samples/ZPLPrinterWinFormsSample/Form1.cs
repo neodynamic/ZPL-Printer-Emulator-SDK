@@ -17,16 +17,28 @@ namespace ZPLPrinterWinFormsSample
 {
     public partial class Form1 : Form
     {
+
+        ImageViewer imgViewer = new ImageViewer();
+
         public Form1()
         {
             InitializeComponent();
+
+            imgViewer.Dock = DockStyle.Fill;
+
+            viewerContainer.Controls.Add(imgViewer);
+                        
         }
 
         //Create an instance of ZPLPrinter class
-        ZPLPrinter zplPrinter = new ZPLPrinter("", "");
+        ZPLPrinter zplPrinter = new ZPLPrinter("EVAL", "EVAL");
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // Load encodings
+            cboEncodings.DataSource = Encoding.GetEncodings().Select(p => p.Name).ToArray<string>();
+            cboEncodings.SelectedIndex = cboEncodings.FindStringExact("utf-8");
+
             //Load supported output rendering formats and rotation options
             cboOutputFormat.DataSource = Enum.GetNames(typeof(RenderOutputFormat));
             cboOutputRotation.DataSource = Enum.GetNames(typeof(RenderOutputRotation));
@@ -39,26 +51,26 @@ namespace ZPLPrinterWinFormsSample
             this.nudLabelHeight.Value = 6;
 
             //zplPrinter.AddFont("R:ARIUNI.FNT", @"c:\Windows\Fonts\ARIALUNI.TTF");
-            
         }
 
        
         private void btnPreviewZpl_Click(object sender, EventArgs e)
         {
+
             //Prepare ZPLPrinter
             this.PrepareZPLPrinter();
 
-            try
-            {
+            //try
+            //{
                 //Let ZPLPrinter to process the specified ZPL commands
                 //and display rendering output if any...
-                DisplayRenderOutput(zplPrinter.ProcessCommands(this.txtZPLCommands.Text, Encoding.UTF8, true));
-            }
-            catch (Exception ex)
-            {
-                this.imgViewer.Clear();
-                MessageBox.Show(ex.Message);
-            }
+                DisplayRenderOutput(zplPrinter.ProcessCommands(this.txtZPLCommands.Text, Encoding.GetEncoding(cboEncodings.SelectedValue.ToString()), true));
+            //}
+            //catch (Exception ex)
+            //{
+            //    this.imgViewer.Clear();
+            //    MessageBox.Show(ex.Message);
+            //}
 
         }
 
@@ -68,9 +80,10 @@ namespace ZPLPrinterWinFormsSample
             var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                
+                this.imgViewer.Clear();
+
                 //display commands from file
-                this.txtZPLCommands.Text = System.IO.File.ReadAllText(ofd.FileName, Encoding.UTF8);
+                this.txtZPLCommands.Text = System.IO.File.ReadAllText(ofd.FileName, Encoding.GetEncoding(cboEncodings.SelectedValue.ToString()));
 
                 //Let ZPLPrinter to process the specified file containing ZPL commands
                 //and display rendering output if any...
@@ -150,10 +163,17 @@ namespace ZPLPrinterWinFormsSample
                         sd.Filter = "EPSON ESC/POS NV Binary (*.nv)|*.nv";
                         sd.DefaultExt = "nv";
                     }
+                    else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.PCL)
+                    {
+                        sd.Filter = "HP PCL Binary (*.pcl)|*.pcl";
+                        sd.DefaultExt = "pcl";
+                    }
 
                     sd.AddExtension = true;
                     if (sd.ShowDialog() == DialogResult.OK)
                         System.IO.File.WriteAllBytes(sd.FileName, buffer[0]);
+
+
                 }
             }
         }
@@ -207,9 +227,11 @@ namespace ZPLPrinterWinFormsSample
             //Set Watermark Image
             zplPrinter.WatermarkImageFile = this.txtWatermarkImage.Text;
             zplPrinter.WatermarkOpacity = 50;
-
+            //zplPrinter.InvertColors = true;
             //Set Thumbnail Size
             //zplPrinter.ThumbnailSize = 300;
+            //zplPrinter.EnablePrinting = true;
+            //zplPrinter.EnableGraphicsCache = true;
         }
 
         private string ColorToHex(Color c)

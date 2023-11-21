@@ -39,6 +39,10 @@
             this.cboOutputFormat = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnExamineWatermark = new System.Windows.Forms.Button();
+            this.txtWatermarkImage = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnPrinterStorage = new System.Windows.Forms.Button();
             this.chkForceLabelHeight = new System.Windows.Forms.CheckBox();
             this.chkForceLabelWidth = new System.Windows.Forms.CheckBox();
             this.chkTransparent = new System.Windows.Forms.CheckBox();
@@ -57,11 +61,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cboDpi = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnPrinterStorage = new System.Windows.Forms.Button();
-            this.btnExamineWatermark = new System.Windows.Forms.Button();
-            this.txtWatermarkImage = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.imgViewer = new ZPLPrinterWinFormsSample.ImageViewer();
+            this.cboEncodings = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.viewerContainer = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLabelHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLabelWidth)).BeginInit();
@@ -93,12 +95,12 @@
             this.txtZPLCommands.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.txtZPLCommands.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZPLCommands.Location = new System.Drawing.Point(12, 329);
+            this.txtZPLCommands.Location = new System.Drawing.Point(12, 362);
             this.txtZPLCommands.MaxLength = 2147483646;
             this.txtZPLCommands.Multiline = true;
             this.txtZPLCommands.Name = "txtZPLCommands";
             this.txtZPLCommands.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtZPLCommands.Size = new System.Drawing.Size(509, 295);
+            this.txtZPLCommands.Size = new System.Drawing.Size(509, 262);
             this.txtZPLCommands.TabIndex = 5;
             this.txtZPLCommands.Text = resources.GetString("txtZPLCommands.Text");
             // 
@@ -198,6 +200,44 @@
             this.groupBox1.Size = new System.Drawing.Size(509, 245);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
+            // 
+            // btnExamineWatermark
+            // 
+            this.btnExamineWatermark.Location = new System.Drawing.Point(430, 170);
+            this.btnExamineWatermark.Name = "btnExamineWatermark";
+            this.btnExamineWatermark.Size = new System.Drawing.Size(69, 21);
+            this.btnExamineWatermark.TabIndex = 21;
+            this.btnExamineWatermark.Text = "Examine...";
+            this.btnExamineWatermark.UseVisualStyleBackColor = true;
+            this.btnExamineWatermark.Click += new System.EventHandler(this.btnExamineWatermark_Click);
+            // 
+            // txtWatermarkImage
+            // 
+            this.txtWatermarkImage.Location = new System.Drawing.Point(112, 171);
+            this.txtWatermarkImage.Name = "txtWatermarkImage";
+            this.txtWatermarkImage.Size = new System.Drawing.Size(312, 20);
+            this.txtWatermarkImage.TabIndex = 20;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(10, 174);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(94, 13);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Watermark Image:";
+            // 
+            // btnPrinterStorage
+            // 
+            this.btnPrinterStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrinterStorage.Location = new System.Drawing.Point(13, 205);
+            this.btnPrinterStorage.Name = "btnPrinterStorage";
+            this.btnPrinterStorage.Size = new System.Drawing.Size(486, 25);
+            this.btnPrinterStorage.TabIndex = 19;
+            this.btnPrinterStorage.Text = "Admin Printer Storage...";
+            this.btnPrinterStorage.UseVisualStyleBackColor = true;
+            this.btnPrinterStorage.Click += new System.EventHandler(this.btnPrinterStorage_Click);
             // 
             // chkForceLabelHeight
             // 
@@ -416,60 +456,43 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "DPI:";
             // 
-            // btnPrinterStorage
+            // cboEncodings
             // 
-            this.btnPrinterStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrinterStorage.Location = new System.Drawing.Point(13, 205);
-            this.btnPrinterStorage.Name = "btnPrinterStorage";
-            this.btnPrinterStorage.Size = new System.Drawing.Size(486, 25);
-            this.btnPrinterStorage.TabIndex = 19;
-            this.btnPrinterStorage.Text = "Admin Printer Storage...";
-            this.btnPrinterStorage.UseVisualStyleBackColor = true;
-            this.btnPrinterStorage.Click += new System.EventHandler(this.btnPrinterStorage_Click);
+            this.cboEncodings.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboEncodings.FormattingEnabled = true;
+            this.cboEncodings.Location = new System.Drawing.Point(215, 333);
+            this.cboEncodings.Name = "cboEncodings";
+            this.cboEncodings.Size = new System.Drawing.Size(306, 21);
+            this.cboEncodings.TabIndex = 9;
             // 
-            // btnExamineWatermark
+            // label12
             // 
-            this.btnExamineWatermark.Location = new System.Drawing.Point(430, 170);
-            this.btnExamineWatermark.Name = "btnExamineWatermark";
-            this.btnExamineWatermark.Size = new System.Drawing.Size(69, 21);
-            this.btnExamineWatermark.TabIndex = 21;
-            this.btnExamineWatermark.Text = "Examine...";
-            this.btnExamineWatermark.UseVisualStyleBackColor = true;
-            this.btnExamineWatermark.Click += new System.EventHandler(this.btnExamineWatermark_Click);
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(14, 336);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(198, 13);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Code Page / Commands Text Encoding:";
             // 
-            // txtWatermarkImage
+            // viewerContainer
             // 
-            this.txtWatermarkImage.Location = new System.Drawing.Point(112, 171);
-            this.txtWatermarkImage.Name = "txtWatermarkImage";
-            this.txtWatermarkImage.Size = new System.Drawing.Size(312, 20);
-            this.txtWatermarkImage.TabIndex = 20;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(10, 174);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(94, 13);
-            this.label11.TabIndex = 22;
-            this.label11.Text = "Watermark Image:";
-            // 
-            // imgViewer
-            // 
-            this.imgViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.viewerContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.imgViewer.Location = new System.Drawing.Point(537, 43);
-            this.imgViewer.Name = "imgViewer";
-            this.imgViewer.Size = new System.Drawing.Size(639, 581);
-            this.imgViewer.TabIndex = 7;
+            this.viewerContainer.Location = new System.Drawing.Point(533, 45);
+            this.viewerContainer.Name = "viewerContainer";
+            this.viewerContainer.Size = new System.Drawing.Size(643, 579);
+            this.viewerContainer.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1188, 636);
-            this.Controls.Add(this.imgViewer);
+            this.Controls.Add(this.viewerContainer);
+            this.Controls.Add(this.cboEncodings);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnOpenZplFile);
@@ -515,7 +538,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cboOutputRotation;
-        private ImageViewer imgViewer;
         private System.Windows.Forms.Button btnExamine;
         private System.Windows.Forms.TextBox txtBackgroundImage;
         private System.Windows.Forms.Label label10;
@@ -526,6 +548,9 @@
         private System.Windows.Forms.Button btnExamineWatermark;
         private System.Windows.Forms.TextBox txtWatermarkImage;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cboEncodings;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel viewerContainer;
     }
 }
 
