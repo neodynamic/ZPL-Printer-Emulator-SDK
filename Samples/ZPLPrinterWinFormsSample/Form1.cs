@@ -31,7 +31,7 @@ namespace ZPLPrinterWinFormsSample
         }
 
         //Create an instance of ZPLPrinter class
-        ZPLPrinter zplPrinter = new ZPLPrinter("EVAL", "EVAL");
+        ZPLPrinter zplPrinter = new ZPLPrinter("", "");
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -51,9 +51,26 @@ namespace ZPLPrinterWinFormsSample
             this.nudLabelHeight.Value = 6;
 
             //zplPrinter.AddFont("R:ARIUNI.FNT", @"c:\Windows\Fonts\ARIALUNI.TTF");
+            //zplPrinter.AddFont("R:Helvetic.FNT", @"c:\temp\Helvetic.ttf");
+            //zplPrinter.AddFont("R:MyriadAM.FNT", @"c:\temp\MyriadAM.ttf");
+
+            //zplPrinter.RenderOutputIndexes = new List<int>() { 1, 3, 5 };
+
+            zplPrinter.PrinterControl += ZplPrinter_PrinterControl;
+
+            zplPrinter.Render += ZplPrinter_Render;
         }
 
-       
+        private void ZplPrinter_Render(object sender, RenderEventArgs e)
+        {
+            var re = e.RenderedElements.Count;
+        }
+
+        private void ZplPrinter_PrinterControl(object sender, PrinterControlEventArgs e)
+        {
+            //MessageBox.Show("Printer Control Command: " + e.Command.ToString());
+        }
+
         private void btnPreviewZpl_Click(object sender, EventArgs e)
         {
 
@@ -71,6 +88,8 @@ namespace ZPLPrinterWinFormsSample
             //    this.imgViewer.Clear();
             //    MessageBox.Show(ex.Message);
             //}
+            var json = zplPrinter.ToJson();
+
 
         }
 

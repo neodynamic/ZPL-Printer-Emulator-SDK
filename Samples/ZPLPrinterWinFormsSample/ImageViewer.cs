@@ -68,7 +68,7 @@ namespace ZPLPrinterWinFormsSample
             {
                 foreach(var zplElem in _zplPrinter.RenderedElements[iCurrPage - 1])
                 {
-                    this.lstZPLElements.Items.Add(string.IsNullOrEmpty(zplElem.Content) ? "^" + zplElem.Name : string.Format("^{0}: `{1}`", zplElem.Name, zplElem.Content));
+                    this.lstZPLElements.Items.Add(string.IsNullOrEmpty(zplElem.Content) ? "^" + zplElem.Name : string.Format("^{0}: `{1}` ({2}, {3}, {4})", zplElem.Name, zplElem.Content, zplElem.Rotation, zplElem.Justification, zplElem.IsReverse));
                 }
             }
 
