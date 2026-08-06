@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Neodynamic.SDK.ZPLPrinter;
+using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using System.IO;
-
-using Neodynamic.SDK.ZPLPrinter;
-using SkiaSharp;
 
 namespace ZPLPrinterWinFormsSample
 {
@@ -27,7 +27,7 @@ namespace ZPLPrinterWinFormsSample
             imgViewer.Dock = DockStyle.Fill;
 
             viewerContainer.Controls.Add(imgViewer);
-                        
+
         }
 
         //Create an instance of ZPLPrinter class
@@ -51,10 +51,17 @@ namespace ZPLPrinterWinFormsSample
             this.nudLabelHeight.Value = 6;
 
             //zplPrinter.AddFont("R:ARIUNI.FNT", @"c:\Windows\Fonts\ARIALUNI.TTF");
+            //zplPrinter.AddFont("E:SIMSUN.FNT", @"E:\temp\SIMSUN.TTF");
+
             //zplPrinter.AddFont("R:Helvetic.FNT", @"c:\temp\Helvetic.ttf");
             //zplPrinter.AddFont("R:MyriadAM.FNT", @"c:\temp\MyriadAM.ttf");
 
+            //zplPrinter.AddFont("E:SSP.FNT", @"C:\temp\SourceSansPro-Regular.ttf");
+            //zplPrinter.AddFont("E:SCP.FNT", @"C:\temp\SourceSansPro-Regular.ttf");
+            //zplPrinter.AddFont("E:SSP-SB.FNT", @"C:\temp\SourceSansPro-SemiBold.ttf");
+            
             //zplPrinter.RenderOutputIndexes = new List<int>() { 1, 3, 5 };
+
 
             zplPrinter.PrinterControl += ZplPrinter_PrinterControl;
 
@@ -79,9 +86,10 @@ namespace ZPLPrinterWinFormsSample
 
             //try
             //{
-                //Let ZPLPrinter to process the specified ZPL commands
-                //and display rendering output if any...
-                DisplayRenderOutput(zplPrinter.ProcessCommands(this.txtZPLCommands.Text, Encoding.GetEncoding(cboEncodings.SelectedValue.ToString()), true));
+            //Let ZPLPrinter to process the specified ZPL commands
+            //and display rendering output if any...
+            DisplayRenderOutput(zplPrinter.ProcessCommands(this.txtZPLCommands.Text, Encoding.GetEncoding(cboEncodings.SelectedValue.ToString()), true));
+
             //}
             //catch (Exception ex)
             //{
@@ -130,19 +138,19 @@ namespace ZPLPrinterWinFormsSample
                     {
                         int c = buffer.Count.ToString().Length;
                         //save images on disk 
-                        for(int i = 0; i < buffer.Count; i++)
+                        for (int i = 0; i < buffer.Count; i++)
                         {
                             File.WriteAllBytes(myDir + "Image" + i.ToString().PadLeft(c, '0') + "." + zplPrinter.RenderOutputFormat.ToString(), buffer[i]);
                         }
                         //preview them
                         this.imgViewer.LoadImages(myDir, ref zplPrinter);
-                        
+
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
-                    
+
 
                 }
                 else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.PDF)
@@ -154,7 +162,7 @@ namespace ZPLPrinterWinFormsSample
                     if (sd.ShowDialog() == DialogResult.OK)
                         System.IO.File.WriteAllBytes(sd.FileName, buffer[0]);
                 }
-                else 
+                else
                 {
                     var sd = new SaveFileDialog();
                     if (zplPrinter.RenderOutputFormat == RenderOutputFormat.PCX)
@@ -186,6 +194,11 @@ namespace ZPLPrinterWinFormsSample
                     {
                         sd.Filter = "HP PCL Binary (*.pcl)|*.pcl";
                         sd.DefaultExt = "pcl";
+                    }
+                    else if (zplPrinter.RenderOutputFormat == RenderOutputFormat.TIFF)
+                    {
+                        sd.Filter = "TIFF - Tagged Image File Format (*.tif)|*.tif";
+                        sd.DefaultExt = "tif";
                     }
 
                     sd.AddExtension = true;
@@ -221,10 +234,13 @@ namespace ZPLPrinterWinFormsSample
             zplPrinter.ForceLabelWidth = this.chkForceLabelWidth.Checked;
             zplPrinter.ForceLabelHeight = this.chkForceLabelHeight.Checked;
 
+            //zplPrinter.PaperWidth = 8.27f;   // A4 Width in Inch
+            //zplPrinter.PaperHeight = 11.69f; // A4 Height in Inch
+            //zplPrinter.PaperOrientation = PaperOrientation.Portrait;
 
             //Apply antialiasing?
             zplPrinter.AntiAlias = this.chkAntiAlias.Checked;
-            
+
             //Set image or doc format for output rendering 
             zplPrinter.RenderOutputFormat = (RenderOutputFormat)Enum.Parse(typeof(RenderOutputFormat), cboOutputFormat.SelectedValue.ToString());
 
@@ -235,7 +251,7 @@ namespace ZPLPrinterWinFormsSample
             zplPrinter.RibbonColor = ColorToHex(this.btnRibbonColor.BackColor);
 
             //Set Label BackColor
-            if(chkTransparent.Checked)
+            if (chkTransparent.Checked)
                 zplPrinter.LabelBackColor = ColorToHex(Color.Transparent);
             else
                 zplPrinter.LabelBackColor = ColorToHex(this.btnLabelBackColor.BackColor);
@@ -251,6 +267,11 @@ namespace ZPLPrinterWinFormsSample
             //zplPrinter.ThumbnailSize = 300;
             //zplPrinter.EnablePrinting = true;
             //zplPrinter.EnableGraphicsCache = true;
+            //zplPrinter.TiffCompression = TiffCompression.CCITTG4;
+            //zplPrinter.TiffPixelFormat = TiffPixelFormat.Bilevel;
+            //zplPrinter.PclMonochrome = true;
+            //zplPrinter.PclCompression = true;
+
         }
 
         private string ColorToHex(Color c)
@@ -262,12 +283,12 @@ namespace ZPLPrinterWinFormsSample
                 Convert.ToString(c.B, 16).PadLeft(2, '0'));
         }
 
-        
+
         private void btnRibbonColor_Click(object sender, EventArgs e)
         {
             var cd = new ColorDialog();
             cd.Color = this.btnRibbonColor.BackColor;
-            if(cd.ShowDialog() == DialogResult.OK)
+            if (cd.ShowDialog() == DialogResult.OK)
             {
                 this.btnRibbonColor.BackColor = cd.Color;
             }
@@ -284,7 +305,7 @@ namespace ZPLPrinterWinFormsSample
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {   
+        {
             zplPrinter.Dispose();
         }
 
@@ -292,7 +313,7 @@ namespace ZPLPrinterWinFormsSample
         {
             var ofd = new OpenFileDialog();
             ofd.Filter = "Image Files(*.JPG;*.PNG)|*.JPG;*.PNG";
-            if(ofd.ShowDialog() == DialogResult.OK)
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
                 txtBackgroundImage.Text = ofd.FileName;
             }
